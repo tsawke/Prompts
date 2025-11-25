@@ -76,7 +76,52 @@ auto Partition = [](vector < int > &A, int l, int r)->int{
 };
 ```
 
+对于常规输入的 $N, M, Q$ 等，均使用大写字母。
+
+字符串的 $S, T$ 等也使用大写字母。
+
+单字母数组名也尽量使用大写字母，如 `vector < int > A`.
+
+函数命名采用驼峰命名法且首字母大写。变量命名采用驼峰命名法且首字母小写。
+
+如果要使用预初始化数组的时候，长度溢出10，如：
+```cpp
+vector < vector < int > > dp(N + 10, vector < int >(M + 10, 0));
+```
+
+使用 `long long`, `unsigned` 的时候，直接使用我模板里 `using` 的 `ll` 和 `uint` 等。
+
+对于乘以2和除以2，尽量使用`<<`, `>>`。
+
+前缀和命名为 `sum[]`。
+
+定义变量初始化时，如果表达式简单，使用括号初始化，如 `int res(0);`.
+
+`INF` 按需使用 `0x3f3f3f3f` 或者 `INT_MAX >> 1` 这样的数值。
+
+对于形如:
+
+```cpp
+if(dpMn[i][k] + dpMn[k + 1][j] + w < dpMn[i][j])
+     dpMn[i][j] = dpMn[i][k] + dpMn[k + 1][j] + w;
+```
+
+也不要使用这样的数组定义：
+```cpp
+    ll dpMn[405][405];
+    ll dpMx[405][405];
+```
+
+直接使用 `vetcor`.
+
+输出时直接使用 `printf` 输出，仅使用 `string` 等特殊情况使用 `cout` 输出
+
+直接用 `max` 或 `min` 函数代替。
+
+在可省略的时候尽量不要使用 `static`。
+
 对于大的数据结构，将其封装到 `class` 中，无需特别严格，例子：
+
 ```cpp
 class Node{
 public:
@@ -186,6 +231,10 @@ switch(opt){
 ```
 
 `size` 可以缩写成 `siz`，`height` 不要缩写成 `hgt`。
+
+`max` 和 `min` 分别缩写成 `mx`, `mn`。
+
+默认不要关同步，读入整形直接使用我的 `read()`，如 `int N = read();`.
 
 应用我模板中的所有 `using`，如 `uint`, `ll`。
 
