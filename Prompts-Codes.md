@@ -2,7 +2,10 @@
 
 下面是我的代码风格（C++），你本次提供的代码要严格遵循这一风格：
 
+代码应当给出两份，一份是带有详细中英文注释的，一份是不包含注释的。
+
 使用如下模板：
+
 ```cpp
 #define _USE_MATH_DEFINES
 #include <bits/stdc++.h>
@@ -51,6 +54,7 @@ int main(){
 在类型嵌套中要遵循这样的格式：`vector < pair < int, int > > vec;`；
 
 语句右括号之后不要有空格，且`{`不换行不加空格，如：
+
 ```cpp
 for(int i = 1; i <= N; ++i){
 	//codes
@@ -58,6 +62,7 @@ for(int i = 1; i <= N; ++i){
 ```
 
 对于仅有一行，或可以用逗号连接的少量语句，不要换行，不要使用大括号，如：
+
 ```cpp
 if(a == 1)b = 2, c = 3;
 else if(a == 2)d = 4;
@@ -65,6 +70,7 @@ else c = 5;
 ```
 
 所有函数以如下形式定义：
+
 ```cpp
 auto Partition = [](vector < int > &A, int l, int r)->int{
     int val(A[r]);
@@ -80,11 +86,14 @@ auto Partition = [](vector < int > &A, int l, int r)->int{
 
 字符串的 $S, T$ 等也使用大写字母。
 
+注意 `read < int >()` 由于我的模板的存在，要直接使用 `read()`。
+
 单字母数组名也尽量使用大写字母，如 `vector < int > A`.
 
 函数命名采用驼峰命名法且首字母大写。变量命名采用驼峰命名法且首字母小写。
 
 如果要使用预初始化数组的时候，长度溢出10，如：
+
 ```cpp
 vector < vector < int > > dp(N + 10, vector < int >(M + 10, 0));
 ```
@@ -107,6 +116,7 @@ if(dpMn[i][k] + dpMn[k + 1][j] + w < dpMn[i][j])
 ```
 
 也不要使用这样的数组定义：
+
 ```cpp
     ll dpMn[405][405];
     ll dpMx[405][405];
@@ -205,6 +215,7 @@ public:
 ```
 
 对于一般的结构体，不需要构造函数，直接使用：
+
 ```cpp
 new Node{nullptr, nullptr, val, 1, 1, 1}
 ```
@@ -250,3 +261,35 @@ delete old;
 delete exchange(p, p->ls);
 ```
 
+对于这样的判断：
+```cpp
+if(N >= 1)printf("1\n");
+else printf("0\n");
+```
+
+都写成三目运算符 `printf("%d\n", N >= 1 ? 1 : 0)` 的形式。
+
+不要使用 `int r = int(len % 3);` 直接 `int r = len % 3`.
+
+对于类似这样的循环 `for(int i = 1; i <= N; ++i)W[i] = read < ll >();` 注意使用 1-index。但是如果过程中我们使用了 `vector` 这样容器的迭代器，也就是 `begin()` 等，则可以根据情况选择 0-index 还是 1-index.
+
+对于这样的连续赋值或者初始化，直接使用逗号连接放到一起：如：
+
+```cpp
+ll halfK = K >> 1;
+ll pairs = X >> 1;
+ll singles = X & 1;
+```
+
+改为：
+```cpp
+ll halfK = K >> 1, pairs = X >> 1;
+```
+
+对于这样的 `singles` 不需要单独定义一个变量，直接在过程中使用 `X & 1`。
+
+对于 `sort` 中的 `cmp`，直接在函数里调用函数指针。
+
+非必要不要使用 `reserve();`.
+
+如果 `for` 或者其他语句内部只有一行或者若干可以用逗号连接的赋值，或者一整个语句的话，也就是大括号可以省略的时候，直接省略大括号。
