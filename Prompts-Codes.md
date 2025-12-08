@@ -293,3 +293,31 @@ ll halfK = K >> 1, pairs = X >> 1;
 非必要不要使用 `reserve();`.
 
 如果 `for` 或者其他语句内部只有一行或者若干可以用逗号连接的赋值，或者一整个语句的话，也就是大括号可以省略的时候，直接省略大括号。
+
+存图使用指针形式的链式前向星，如：
+```cpp
+struct Edge{
+    Edge* nxt;
+    int to;
+    int val;
+}
+```
+
+这样建立数组：
+```cpp
+vector < Edge* > head[LIM]
+```
+
+建边时按照这个格式：
+
+```cpp
+head[s] = new Edge{head[s], t};
+```
+
+遍历边时按照这个格式：
+```cpp
+for(auto i = head[p]; i; i = i->nxt){
+    
+}
+```
+
