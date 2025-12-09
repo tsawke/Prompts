@@ -321,3 +321,23 @@ for(auto i = head[p]; i; i = i->nxt){
 }
 ```
 
+不要使用：
+```cpp
+for(auto e = head[v]; e; e = e->nxt){
+            int u = e->to;
+```
+
+直接使用：
+```cpp
+for(auto i = head[p]; i; i = i->nxt){
+    
+}
+```
+
+和 `i->to`。
+
+枚举点的时候优先使用 `p` 作为变量名，相应地 bfs，dfs 等时候也使用 `p` 作为变量名。
+
+在特判 `return 0;` 或者 `exit(0);` 时不需要你输出 `fprintf` 的时间。
+
+距离使用 `dis` 不要使用 `dist`.	
