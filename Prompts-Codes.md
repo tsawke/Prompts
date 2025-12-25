@@ -118,8 +118,8 @@ if(dpMn[i][k] + dpMn[k + 1][j] + w < dpMn[i][j])
 也不要使用这样的数组定义：
 
 ```cpp
-    ll dpMn[405][405];
-    ll dpMx[405][405];
+ll dpMn[405][405];
+ll dpMx[405][405];
 ```
 
 直接使用 `vetcor`.
@@ -154,63 +154,6 @@ public:
         if(p->rs)return QueryMx(p->rs);
         return p;
     }
-    Node* QueryMn(Node* p = root){
-        if(!p)return p;
-        if(p->ls)return QueryMn(p->ls);
-        return p;
-    }
-    Node* Insert(int val, Node* p = root){
-        if(!p)return new Node{nullptr, nullptr, val, 1, 1};
-        if(val < p->val)p->ls = Insert(val, p->ls);
-        else if(val > p->val)p->rs = Insert(val, p->rs);
-        else ++p->cnt;
-        Pushup(p);
-        return p;
-    };
-    Node* Delete(int val, Node* p = root){
-        if(!p)return p;
-        if(val < p->val)p->ls = Delete(val, p->ls);
-        else if(val > p->val)p->rs = Delete(val, p->rs);
-        else{
-            if(p->cnt > 1)--p->cnt;
-            else{
-                if(!p->ls)delete exchange(p, p->rs);
-                else if(!p->rs)delete exchange(p, p->ls);
-                else{
-                    auto succ = QueryMn(p->rs);
-                    p->val = succ->val, p->cnt = succ->cnt;
-                    succ->cnt = 1;
-                    p->rs = Delete(succ->val, p->rs);
-                }
-            }
-        }Pushup(p); return p;
-    }
-    int QueryRnk(int val, Node* p = root){
-        if(!p)return 0;
-        if(val == p->val)return siz(p->ls);
-        if(val < p->val)return QueryRnk(val, p->ls);
-        return siz(p->ls) + p->cnt + QueryRnk(val, p->rs);
-    }
-    Node* QueryByRnk(int rnk, Node* p = root){
-        if(!p)return p;
-        // printf("l siz = %d, rnk = %d, cnt = %d\n", siz(p->ls), rnk, p->cnt); fflush(stdout);
-        if(siz(p->ls) + 1 <= rnk && rnk <= siz(p->ls) + p->cnt)return p;
-        if(rnk <= siz(p->ls))return QueryByRnk(rnk, p->ls);
-        return QueryByRnk(rnk - siz(p->ls) - p->cnt, p->rs);
-    }
-    Node* QuerySuc(int val, Node* p = root){
-        if(!p)return p;
-        if(val >= p->val)return QuerySuc(val, p->rs);
-        auto res = QuerySuc(val, p->ls);
-        return res ? res : p;
-    }
-    Node* QueryPre(int val, Node* p = root){
-        if(!p)return p;
-        if(val <= p->val)return QueryPre(val, p->ls);
-        auto res = QueryPre(val, p->rs);
-        return res ? res : p;
-    }
-}tr;
 }tr;
 ```
 
@@ -336,8 +279,27 @@ for(auto i = head[p]; i; i = i->nxt){
 
 和 `i->to`。
 
+另外链式前向星的时候非必要不需要你建立内存池，直接用 `new` 即可。
+
+可以直接使用初始化列表的时候就直接使用，比如 `push({a, b})`，如果可以省略则不要再用 `pair` 或 `tuple` 构造器了。
+
+注意，像这样的：
+```cpp
+using Pq = __gnu_pbds::priority_queue <
+        pair < ll, int >,
+        greater < pair < ll, int > >,
+        __gnu_pbds::pairing_heap_tag
+    >;
+
+    Pq pq;
+```
+
+不要命名为 `Pq`，可以使用 `PQ`。
+
 枚举点的时候优先使用 `p` 作为变量名，相应地 bfs，dfs 等时候也使用 `p` 作为变量名。
 
 在特判 `return 0;` 或者 `exit(0);` 时不需要你输出 `fprintf` 的时间。
 
 距离使用 `dis` 不要使用 `dist`.	
+
+不要使用：`using Pii = pair<>`, when using pair <>, just strictly using pair <>.
